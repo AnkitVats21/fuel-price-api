@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import index
+from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('fuel-price/india', index),
+    path('fuel-price/india', views.index),
+    path('fuel-price/india/<state>', views.statewise),
 ]
