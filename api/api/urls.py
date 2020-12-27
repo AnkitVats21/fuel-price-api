@@ -19,6 +19,7 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.landing),
     path('fuel-price/india', views.index),
     path('fuel-price/india/<state>', views.statewise),
 ]

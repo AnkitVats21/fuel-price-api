@@ -9,7 +9,10 @@ BASE_URL='https://www.newsrain.in/petrol-diesel-prices'
 
 def getNationalData():
     url = BASE_URL
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except:
+        return 'unable to reach server'
     soup = BeautifulSoup(response.content, 'html.parser')
     result=soup.find_all('article')
 
@@ -41,7 +44,10 @@ def getNationalData():
 
 def getStateData(state):
     url=BASE_URL+'/'+state
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except:
+        return "unable to reach server"
     soup = BeautifulSoup(response.content, 'html.parser')
     district=soup.find_all('div', class_='fuel-wrapper')
     res=[]
@@ -66,6 +72,10 @@ def getStateData(state):
 def index(request):
     data=getNationalData()
     return HttpResponse(data)
+
+def landing(request):
+    context=request.META.get('HTTP_HOST')
+    return render(request,'index.html',{'context':context})
 
 def statewise(request,state):
     data=getStateData(state)
